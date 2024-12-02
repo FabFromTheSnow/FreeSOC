@@ -13,3 +13,5 @@ RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
+
+# run elastalert as a service with python virtualenv
