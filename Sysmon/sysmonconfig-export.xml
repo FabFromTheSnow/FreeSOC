@@ -837,7 +837,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--xlsm file -->
 			<TargetFilename condition="end with">.pptm</TargetFilename> <!--pptm file -->
 			<TargetFilename condition="end with">.dotm</TargetFilename> <!--dotm file -->
-			<TargetFilename condition="ends with">.jar</TargetFilename> <!-- jar file -->
+			<TargetFilename condition="end with">.jar</TargetFilename> <!-- jar file -->
 			<TargetFilename condition="end with">.bin</TargetFilename> <!--bin file -->
 			<TargetFilename condition="end with">.raw</TargetFilename> <!--raw file -->
 			<TargetFilename condition="end with">.asp</TargetFilename> <!--asp file -->
@@ -849,15 +849,15 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<TargetFilename condition="end with">.scr</TargetFilename> <!--windows screensaver -->
 			<TargetFilename condition="end with">.hlp</TargetFilename> <!--windows help file -->
 			<TargetFilename condition="end with">.xll</TargetFilename> <!--excel addin -->
-			<TargetFilename condition="ends with">.asp</TargetFilename> <!-- Active Server Pages script -->
-			<TargetFilename condition="ends with">.aspx</TargetFilename> <!-- ASP.NET page -->
-			<TargetFilename condition="ends with">.ashx</TargetFilename> <!-- ASP.NET web handler file -->
-			<TargetFilename condition="ends with">.asmx</TargetFilename> <!-- ASP.NET web service file -->
-			<TargetFilename condition="ends with">.config</TargetFilename> <!-- Configuration file -->
-			<TargetFilename condition="ends with">.cer</TargetFilename> <!-- Certificate file -->
-			<TargetFilename condition="ends with">.htr</TargetFilename> <!-- HTML template file -->
-			<TargetFilename condition="ends with">.xoml</TargetFilename> <!-- Workflow file -->
-			<TargetFilename condition="ends with">.jar</TargetFilename> <!-- jar file -->
+			<TargetFilename condition="end with">.asp</TargetFilename> <!-- Active Server Pages script -->
+			<TargetFilename condition="end with">.aspx</TargetFilename> <!-- ASP.NET page -->
+			<TargetFilename condition="end with">.ashx</TargetFilename> <!-- ASP.NET web handler file -->
+			<TargetFilename condition="end with">.asmx</TargetFilename> <!-- ASP.NET web service file -->
+			<TargetFilename condition="end with">.config</TargetFilename> <!-- Configuration file -->
+			<TargetFilename condition="end with">.cer</TargetFilename> <!-- Certificate file -->
+			<TargetFilename condition="end with">.htr</TargetFilename> <!-- HTML template file -->
+			<TargetFilename condition="end with">.xoml</TargetFilename> <!-- Workflow file -->
+			<TargetFilename condition="end with">.jar</TargetFilename> <!-- jar file -->
 		</FileCreateStreamHash>
 
 	<RuleGroup name="" groupRelation="or">
