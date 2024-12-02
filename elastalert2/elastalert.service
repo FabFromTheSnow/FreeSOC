@@ -1,0 +1,15 @@
+[Unit]
+Description=ElastAlert Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/etc/elastalertinstall
+ExecStart=/bin/bash -c 'source /etc/elastalertpath/elastalert/bin/activate && exec python3 -m elastalert.elastalert --config /etc/elastalert/config.yaml'
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
