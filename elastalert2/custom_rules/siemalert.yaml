@@ -1,0 +1,44 @@
+name: elkSiem
+type: any
+
+# Monitor elastic security siem alerts (free by default but notifciation) this config add notifcation for free
+index: .alerts-security.alerts*
+
+# Look back over the last 24 hours
+timeframe:
+  hours: 1
+
+# Delay query to account for data latency
+query_delay:
+  minutes: 2
+
+filter:
+- term:
+      kibana.alert.workflow_status: "open"
+
+alert:
+- "email"
+
+email:
+- "email@email.com"
+
+smtp_host: smtp-relay.brevo.com
+smtp_port: 587
+smtp_auth_file: ../smtpauth.yaml
+
+scan_entire_timeframe: true
+
+
+alert_subject: "Alert: {0}"
+alert_subject_args:
+  - kibana.alert.rule.name
+alert_text: |
+  User Domain: {0}
+  User Name: {1}
+  Host IPs: {2}
+  Alert Reason: {3}
+alert_text_args:
+  - user.domain
+  - user.name
+  - host.ip
+  - kibana.alert.reason
