@@ -1,5 +1,5 @@
 #KQL detection rules 
-#Following rules were based on snapattack threat intel, you can find author/who discovered by following snapattack link
+#Following rules were based on snapattack or socprime threat intel, you can find author/who discovered by following snapattack/socprime link
 #These kibana query languague queries will be used to trigger alert in elastic security, which will then be notified thanks to free elastalert2
 
 
@@ -29,7 +29,7 @@ event.code : ("12" or "13" or "14") and registry.path : (*System*CurrentControlS
 https://app.snapattack.com/detection/a3df9342-c912-4480-bbcc-62a7ed4d467f | suspicious enumeration of kerberos ticket
 event.code : "1" and process.executable.text : klist.exe and process.parent.name : (*powershell.exe* or *cmd.exe*)
 
-https://app.snapattack.com/detection/bb27e968-9bd2-4bb5-a97b-9e8dd5ec4a33 | NoChangingWallPaper
+https://app.snapattack.com/detection/bb27e968-9bd2-4bb5-a97b-9e8dd5ec4a33 | NoChangingWallPaper, possible malware trying to display message
 event.code : ("12" or "13" or "14") and (registry.path : (*Software*Microsoft*Windows*CurrentVersion*Policies*ActiveDesktop*NoChangingWallPaper*))
 
 https://app.snapattack.com/detection/8bccbf9e-82eb-4692-b42f-8a95cc7d22f7 | GPP password lookup
@@ -55,3 +55,12 @@ event.code : "4104" and powershell.file.script_block_text : *Get-DomainGroupMemb
 
 https://app.snapattack.com/detection/5fe229b3-35df-4f5a-b843-6011ac07fbc6 - Detection: Powershell Load Module in Meterpreter
 event.code : "4104" and powershell.file.script_block_text : ((*MSF.Powershell*) or (*MSF.Powershell.Meterpreter*) or (*MSF.Powershell.Meterpreter.Kiwi*) or (*MSF.Powershell.Meterpreter.Transport*))
+
+https://tdm.socprime.com/tdm/info/89J74TMEsjdY/ : powershell fin7 powerhold (EQL)
+any where (powershell.file.script_block_text : "*$env:APPDATA*" and powershell.file.script_block_text : "*function MainPayload*" and powershell.file.script_block_text : "*::WriteAllBytes*" and powershell.file.script_block_text : "*wscript.exe*")
+
+https://tdm.socprime.com/tdm/info/DNIPtR60UhXO/ :possible  MS Office Code Execution attempt (EQL)
+process where (event.category : "process" and ((process.parent.executable : ("*WINWORD.EXE", "*EXCEL.EXE", "*POWERPNT.EXE", "*MSPUB.EXE", "*VISIO.EXE", "*OUTLOOK.EXE", "*MSACCESS.EXE", "*MSPROJECT.EXE", "*ONENOTE.EXE") and (process.command_line : ("*msdt.exe*", "*../*", "*..\\*") or process.executable : "*msdt.exe")) or ((process.parent.executable : ("*powershell.exe", "*cscript.exe", "*DllHost.exe", "*gpscript.exe", "*eqnedt32.exe", "*hh.exe", "*cmd.exe", "*MSBuild.exe", "*msdt.exe", "*wscript.exe", "*fltldr.exe", "*mshta.exe", "*RegAsm.exe", "*regsvcs.exe", "*rundll32.exe", "*regsvr32.exe") and process.executable : "*msdt.exe" and process.command_line : ("*skip*", "*IT_RebrowseForFile*", "*IT_BrowseForFile*", "*ms-msdt:*", "*af*", "*PCWDiagnostic*")) and  not (process.command_line : ("*DeviceCenterDiagnostic*", "*AudioPlaybackDiagnostic*", "*NetworkDiagnostics*", "*WindowsUpdateDiagnostic*", "*AudioRecording*", "*PrinterDiagnosticMoSet*") or process.executable : "*chrome.exe"))))
+
+https://tdm.socprime.com/tdm/info/vShRbQJTLSqC/ : possible java malware
+process where (event.category : "process" and (process.parent.executable : "*java.exe" and process.executable : ("*appvlp.exe", "*atbroker.exe", "*bash.exe", "*bginfo.exe", "*bitsadmin.exe", "*cmd.exe", "*certutil.exe", "*devtoolslauncher.exe", "*ftp.exe", "*hh.exe", "*ieexec.exe", "*installutil.exe", "*jjs.exe", "*mavinject.exe", "*microsoft.workflow.compiler.exe", "*msbuild.exe", "*msdt.exe", "*mshta.exe", "*msxsl.exe", "*odbcconf.exe", "*powershell.exe", "*presentationhost.exe", "*regasm.exe", "*regsvcs.exe", "*regsvr32.exe", "*rundll32.exe", "*runscripthelper.exe", "*schtasks.exe", "*sqlps.exe", "*sqltoolsps.exe", "*syncappvpublishingserver.exe", "*tracker.exe", "*verclsid.exe", "*vsjitdebugger.exe", "*wmic.exe", "*wsl.exe")) and  not process.command_line : ("*start excel *", "*start winword *", "*chcp 437 & *", "*FileProtocolHandler*"))
