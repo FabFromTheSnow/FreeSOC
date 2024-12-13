@@ -52,3 +52,6 @@ powershell.file.script_block_text : ((*find*) and ((*vulnerable*) or (*enrolleeS
 
 https://app.snapattack.com/detection/821d40e4-8cd2-4dac-afbd-5c79b28e179a | Powerview ad enumeration offensive tool
 event.code : "4104" and powershell.file.script_block_text : *Get-DomainGroupMember* or (event.code : 1 and process.command_line : (*Get-DomainGroupMember*))
+
+https://app.snapattack.com/detection/5fe229b3-35df-4f5a-b843-6011ac07fbc6 - Detection: Powershell Load Module in Meterpreter
+event.code : "4104" and powershell.file.script_block_text : ((*MSF.Powershell*) or (*MSF.Powershell.Meterpreter*) or (*MSF.Powershell.Meterpreter.Kiwi*) or (*MSF.Powershell.Meterpreter.Transport*))
