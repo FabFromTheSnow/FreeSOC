@@ -22,3 +22,29 @@ https://www.cisa.gov/sites/default/files/publications/aa22-320a_joint_csa_irania
 Miner, Credential Harvester
 powershell.file.script_block_text : ((*try*AddMpPreference*ExclusionPath*WriteHost*added*
 exclusion*catch*WriteHost*addingexclusionfailed*powershell*enc*) OR (*getadcomputer*filter*properties*select*name,operatingsystem,ipv4address* )) OR (event.code: 11 and file.path : ((*XMRig*) or (*Ngrok*))) OR (event.code: 22 and dns.question.name : ((*us.ngrok.*) or (*korgn.su.lennut*)))
+
+https://app.snapattack.com/detection/432c950f-4974-459e-8849-bcb17b8b9a65 `| NoLMHash registry setting is disabled
+event.code : ("12" or "13" or "14") and registry.path : (*System*CurrentControlSet*Control*Lsa*NoLmHash*)
+
+https://app.snapattack.com/detection/a3df9342-c912-4480-bbcc-62a7ed4d467f | suspicious enumeration of kerberos ticket
+event.code : "1" and process.executable.text : klist.exe and process.parent.name : (*powershell.exe* or *cmd.exe*)
+
+https://app.snapattack.com/detection/bb27e968-9bd2-4bb5-a97b-9e8dd5ec4a33 | NoChangingWallPaper
+event.code : ("12" or "13" or "14") and (registry.path : (*Software*Microsoft*Windows*CurrentVersion*Policies*ActiveDesktop*NoChangingWallPaper*))
+
+https://app.snapattack.com/detection/8bccbf9e-82eb-4692-b42f-8a95cc7d22f7 | GPP password lookup
+event.code : "1" and process.command_line :  (*findstr*cpassword *.xml)
+
+https://app.snapattack.com/detection/312562bb-c609-4df1-addc-60793e0f9c13 | Execution Compiled HTML File Decompile
+event.code : "1" and process.name : hh.exe and process.command_line : (*-decompile*)
+
+https://app.snapattack.com/detection/cb629ef1-df47-4901-b96e-15833a3ed2d2 | weird msdtc.exe execution
+event.code : "1" and process.name : "msdtc.exe" and process.command_line : ((* -a*) or (*-b*))
+
+https://app.snapattack.com/detection/61a6b350-f7d0-4e5e-bb9c-5436e6a44075 | check for cached domain credentials
+event.code : "1" and process.command_line : (reg*query*HKLM*SOFTWARE*Microsoft*Windows*NT*CurrentVersion*Winlogon*v*CachedLogonsCount*)
+
+https://app.snapattack.com/detection/de14ffcb-d948-46d9-a948-7030a777266e | hidden rundll through msiexec 
+event.code: "1" and process.parent.name : "msiexec.exe" and process.command_line : ((*rundll32*) and (*HideWindow*))
+
+
