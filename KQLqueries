@@ -47,4 +47,8 @@ event.code : "1" and process.command_line : (reg*query*HKLM*SOFTWARE*Microsoft*W
 https://app.snapattack.com/detection/de14ffcb-d948-46d9-a948-7030a777266e | hidden rundll through msiexec 
 event.code: "1" and process.parent.name : "msiexec.exe" and process.command_line : ((*rundll32*) and (*HideWindow*))
 
+https://app.snapattack.com/detection/60ebe63b-3eeb-4ec6-b5ac-71e53f1c35a3 | Potential use of certify 
+powershell.file.script_block_text : ((*find*) and ((*vulnerable*) or (*enrolleeSuppliesSubject*) or (*json*outfile*))) or process.command_line : ((*find*) and ((*vulnerable*) or (*enrolleeSuppliesSubject*) or (*json*outfile*)))
 
+https://app.snapattack.com/detection/821d40e4-8cd2-4dac-afbd-5c79b28e179a | Powerview ad enumeration offensive tool
+event.code : "4104" and powershell.file.script_block_text : *Get-DomainGroupMember* or (event.code : 1 and process.command_line : (*Get-DomainGroupMember*))
