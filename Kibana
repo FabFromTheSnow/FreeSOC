@@ -1,0 +1,19 @@
+#KQL detection rules 
+#Following rules were based on snapattack threat intel, you can find author/who discovered by following snapattack link
+#These kibana query languague queries will be used to trigger alert in elastic security, which will then be notified thanks to free elastalert2
+
+
+https://app.snapattack.com/threat/b861aedb-2f26-15de-5877-278a10746d55 - Threat: Registry Modification | Registry Creation | Enable Multiple RDP Sessions
+(event.code : ("12" or "13" or "14") and (registry.path : (*HKLM*System*CurrentControlSet*Control*Terminal*Server*fSingleSessionPerUser*) and registry.data.strings : 0) or (registry.path : (*Policies*Microsoft*Windows*NT*Terminal*Services*AllowMultipleTSSessions*) and registry.data.strings : 1))
+
+https://app.snapattack.com/detection/b3e50596-755b-4ed3-9981-c6c04d5de8ce
+(event.code : "1" and process.command_line : ( (*dir*C*Users*.ssh*known_hosts*) or (*c*dir*C*users**appdata*roaming*Mozilla*firefox*profiles*) or (*c*mimikatz*) or (*reg*query*HKLM*Software*OpenSSH*) or (*reg*query*HKLM*Software*OpenSSH*Agent*) or (*reg*query*HKLM*Software*RealVNC*) or (*c*reg*query*HKLM*Software*RealVNC*VNCServer*) or (*c*reg*query*HKLM*Software*RealVNC*AllUsers*) or (*reg*query*HKLM*Software*RealVNC*AllUsers*VNCServer*) or (*reg*query*HKCU*Software**PuTTY*Session*) or (*reg*save*HKLM*SAM*ss.dat*) or (*reg*save*HKLM*System*sy.dat*)))
+
+https://app.snapattack.com/detection/d4743bdc-33b1-4926-abff-44be0421d536 mshta execution of remote file or script
+event.code : "1" and process.command_line : (*mshta*http*)
+
+https://app.snapattack.com/detection/74049c99-9227-49e0-b29c-d0264a2589bf | Malware Dridex Dropper Doc 20191217
+process.command_line : *powershell -w hidden -en jabf* or powershell.file.script_block_text : *-w hidden -en jabf*
+
+https://app.snapattack.com/detection/e944da96-f3fa-4d1c-8974-6d34ce49657b | Malware Servhelper Bot
+process.command_line : ((*net*user*wgautilacc*) or (*net*localgroup*remote*desktop*users*)) OR powershell.file.script_block_text : ((*net*user*wgautilacc*) or (*net*localgroup*remote*desktop*users*))
