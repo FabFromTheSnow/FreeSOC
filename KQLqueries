@@ -64,3 +64,14 @@ process where (event.category : "process" and ((process.parent.executable : ("*W
 
 https://tdm.socprime.com/tdm/info/vShRbQJTLSqC/ : possible java malware
 process where (event.category : "process" and (process.parent.executable : "*java.exe" and process.executable : ("*appvlp.exe", "*atbroker.exe", "*bash.exe", "*bginfo.exe", "*bitsadmin.exe", "*cmd.exe", "*certutil.exe", "*devtoolslauncher.exe", "*ftp.exe", "*hh.exe", "*ieexec.exe", "*installutil.exe", "*jjs.exe", "*mavinject.exe", "*microsoft.workflow.compiler.exe", "*msbuild.exe", "*msdt.exe", "*mshta.exe", "*msxsl.exe", "*odbcconf.exe", "*powershell.exe", "*presentationhost.exe", "*regasm.exe", "*regsvcs.exe", "*regsvr32.exe", "*rundll32.exe", "*runscripthelper.exe", "*schtasks.exe", "*sqlps.exe", "*sqltoolsps.exe", "*syncappvpublishingserver.exe", "*tracker.exe", "*verclsid.exe", "*vsjitdebugger.exe", "*wmic.exe", "*wsl.exe")) and  not process.command_line : ("*start excel *", "*start winword *", "*chcp 437 & *", "*FileProtocolHandler*"))
+
+// name: DarkGate - Drop DarkGate Loader In C:\Temp Directory // uuid: df49c691-8026-48dd-94d3-4ba6a79102a8 // author: Tomasz Dyduch, Josh Nickels // licence: DRL 1.1
+any where ((file.path : "*:\\temp\\*" and file.path : ("*.au3", "*\\autoit3.exe")) or (process.executable : "*:\\temp\\*" and process.executable : ("*.au3", "*\\autoit3.exe")))
+
+// name: Potential Kapeka Decrypted Backdoor Indicator // uuid: 20228d05-dd68-435d-8b4e-e7e64938880c // author: Swachchhanda Shrawan Poudel, Nasreddine Bencherchali (Nextron Systems) // licence: DRL 1.1
+any where ((file.path : ("*:\\ProgramData\\*", "*\\AppData\\Local\\*") and file.path regex~ "\\[a-zA-Z]{5,6}.wll.?") or file.path : ("*\\win32log.exe", "*\\crdss.exe"))
+
+// name: ScreenConnect - SlashAndGrab Exploitation Indicators // uuid: 05164d17-8e11-4d7d-973e-9e4962436b87 // author: Nasreddine Bencherchali (Nextron Systems) // licence: DRL 1.1
+any where ((file.path : "*C:\\Windows\\Temp\\ScreenConnect\\*" and file.path : "*\\LB3.exe*") or file.path : ("*C:\\mpyutd.msi*", "*C:\\perflogs\\RunSchedulerTaskOnce.ps1*", "*C:\\ProgramData\\1.msi*", "*C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\mpyutd.msi*", "*C:\\ProgramData\\update.dat*", "*C:\\Users\\oldadmin\\Documents\\MilsoftConnect\\Files\\ta.exe*", "*C:\\Windows\\Help\\Help\\SentinelAgentCore.dll*", "*C:\\Windows\\Help\\Help\\SentinelUI.exe*", "*C:\\Windows\\spsrv.exe*", "*C:\\Windows\\Temp\\svchost.exe*"))
+
+
