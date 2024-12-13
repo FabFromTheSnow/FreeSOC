@@ -17,3 +17,8 @@ process.command_line : *powershell -w hidden -en jabf* or powershell.file.script
 
 https://app.snapattack.com/detection/e944da96-f3fa-4d1c-8974-6d34ce49657b | Malware Servhelper Bot
 process.command_line : ((*net*user*wgautilacc*) or (*net*localgroup*remote*desktop*users*)) OR powershell.file.script_block_text : ((*net*user*wgautilacc*) or (*net*localgroup*remote*desktop*users*))
+
+https://www.cisa.gov/sites/default/files/publications/aa22-320a_joint_csa_iranian_government-sponsored_apt_actors_compromise_federal%20network_deploy_crypto%20miner_credential_harvester.pdf | iranian apt Crypto
+Miner, Credential Harvester
+powershell.file.script_block_text : ((*try*AddMpPreference*ExclusionPath*WriteHost*added*
+exclusion*catch*WriteHost*addingexclusionfailed*powershell*enc*) OR (*getadcomputer*filter*properties*select*name,operatingsystem,ipv4address* )) OR (event.code: 11 and file.path : ((*XMRig*) or (*Ngrok*))) OR (event.code: 22 and dns.question.name : ((*us.ngrok.*) or (*korgn.su.lennut*)))
