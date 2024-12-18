@@ -5,7 +5,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	1.2
+  Fork version:	1.3
   Fork author:	Fab
   Fork project:	2024-ais
 
@@ -240,6 +240,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<Image name="T1099" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area, usually nothing should be doing that here-->
 			<TargetFilename name="T1099" condition="end with">.exe</TargetFilename> <!--Look for backdated executables anywhere-->
 			<Image name="T1099" condition="begin with">\Device\HarddiskVolumeShadowCopy</Image> <!--Nothing should be written here | Credit: @SBousseaden [ https://twitter.com/SBousseaden/status/1133030955407630336 ] -->
+			<TargetFilename condition="contains">thecompanyname</TargetFilename>
 		</FileCreateTime>
 	</RuleGroup>
 
@@ -537,6 +538,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<TargetFilename condition="end with">.xls</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.ppt</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.rtf</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
+			<TargetFilename condition="contains">thecompanyname</TargetFilename>
 		</FileCreate>
 	</RuleGroup>
 
@@ -857,6 +859,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<TargetFilename condition="end with">.htr</TargetFilename> <!-- HTML template file -->
 			<TargetFilename condition="end with">.xoml</TargetFilename> <!-- Workflow file -->
 			<TargetFilename condition="end with">.jar</TargetFilename> <!-- jar file -->
+			<TargetFilename condition="contains">thecompanyname</TargetFilename>
 		</FileCreateStreamHash>
 
 	<RuleGroup name="" groupRelation="or">
@@ -1179,12 +1182,12 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes, IsExecutable, Archived -->
 
-	<!--
+	<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 	<RuleGroup name="" groupRelation="or">
-		<ClipboardChange onmatch="include">
-		</ClipboardChange>
+		<FileDelete onmatch="include">
+			<TargetFilename condition="contains">thecompanyname</TargetFilename>
+		</FileDelete>
 	</RuleGroup>
-	-->
 
 	<!--SYSMON EVENT ID 24 : CLIPBOARD EVENT MONITORING [ClipboardChange]-->
 		<!--EVENT 24: "Clipboard changed"-->
