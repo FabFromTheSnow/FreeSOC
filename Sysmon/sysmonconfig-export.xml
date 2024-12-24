@@ -5,7 +5,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
 
-  Fork version:	1.3
+  Fork version:	1.4
   Fork author:	Fab
   Fork project:	2024-ais
 
@@ -1171,6 +1171,7 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
+			<QueryName condition="contains">atera-agent</QueryName>
 		</DnsQuery>
 	</RuleGroup>
 
