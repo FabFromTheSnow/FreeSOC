@@ -77,3 +77,17 @@ any where ((file.path : "*C:\\Windows\\Temp\\ScreenConnect\\*" and file.path : "
 // name: Visual Studio Code Tunnel Shell Execution // uuid: f4a623c2-4ef5-4c33-b811-0642f702c9f1 // author: Nasreddine Bencherchali (Nextron Systems) // licence: DRL 1.1
 any where event.category : "process" and (process.parent.executable : "*\\servers\\Stable-*" and process.parent.executable : "*\\server\\node.exe" and process.parent.command_line : "*.vscode-server*") and ((process.executable : ("*\\powershell.exe", "*\\pwsh.exe") and process.command_line : "*\\terminal\\browser\\media\\shellIntegration.ps1*") or process.executable : ("*\\wsl.exe", "*\\bash.exe"))
 
+// name : Impacket's atexec detect : https://redcanary.com/threat-detection-report/threats/impacket/ author: RedCanary, Sigma formatting by Micah Babinski date: 2023/05/10
+event.code : "1" and process.parent.name : ("svchost.exe" or "taskeng.exe" or "powershell.exe") and process.command_line : *cmd*temp*2*&1*
+
+// name: CARBANAK like ttp folder supicious bin file created
+event.code : 11 and file.path: *ProgramData*mozilla*.bin
+
+// name : Possible Chromeloader > Source snapttack
+event.code : 1 and process.parent.name : "powershell.exe"  and process.command_line : *--load-extension=*\\Appdata\\local\\chrome*
+
+// name : shadow storage resizing with vssadmin source > FBI report
+event.code: 1 and process.name : "vssadmin.exe" and process.command_line : *resize*shadowstorage
+
+// name : Access to registry access for veeam credential harvesting 
+event.code : 4663 and "\REGISTRY\MACHINE\SOFTWARE\Veeam\Veeam Backup and Replication"
