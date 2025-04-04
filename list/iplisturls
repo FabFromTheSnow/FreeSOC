@@ -6,6 +6,6 @@ https://cinsarmy.com/list/ci-badguys.txt
 https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt
 https://rules.emergingthreats.net/blockrules/compromised-ips.txt
 https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset
-https://raw.githubusercontent.com/duggytuxy/malicious_ip_addresses/refs/heads/main/botnets_zombies_scanner_spam_ips.txt
+https://raw.githubusercontent.com/duggytuxy/Intelligence_IPv4_Blocklists/refs/heads/main/agressive_ips_dst_fr_be_blocklist.txt
 https://isc.sans.edu/block.txt
 https://raw.githubusercontent.com/FabFromTheSnow/FreeSOC/refs/heads/main/list/BADipv4
