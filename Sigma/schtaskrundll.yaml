@@ -1,0 +1,32 @@
+title: Detect Scheduled Task Creation with rundll32 DLL Execution
+id: b1f8a6c7-d2e4-4b2f-9a8e-3c4d5e6f7a8b
+status: experimental
+description: Detects use of schtasks.exe to create scheduled tasks that execute rundll32 with a .dll, which may indicate malicious persistence.
+author: fab
+date: '2025/05/06'
+references:
+  - https://attack.mitre.org/techniques/T1053/005/  
+tags:
+  - attack.T1053.005
+  - persistence
+
+logsource:
+  product: windows
+  service: sysmon
+
+detection:
+  selection:
+    EventID: 1                              # Sysmon Process Create
+    Image|endswith: '\\schtasks.exe'
+    CommandLine|contains_all:
+      - '/create'
+      - 'rundll32'
+      - '.dll'
+  condition: selection
+
+fields:
+  - Image
+  - CommandLine
+  - User
+
+level: medium
