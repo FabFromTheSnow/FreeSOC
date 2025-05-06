@@ -1,0 +1,77 @@
+title: Detect Malicious curl.exe Usage or PowerShell ScriptBlock with curl
+id: f2c8a4b1-3d2e-4d5f-9b7a-1e6c3b8f0a2d
+status: experimental
+description: Detects execution of curl.exe downloading or executing potentially malicious payloads (.hta, .ps1, .psm1, .vbs, .js, .jse, .wsf, .wsh, .exe, .dll, .scr, .bat, .cmd, .jar, .msi, .msp), or PowerShell scriptblocks invoking curl with similar indicators (HTTP URLs or UNC paths).
+author: fab
+date: '2025/05/06'
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://attack.mitre.org/techniques/T1059/001/
+tags:
+  - attack.T1105
+  - attack.T1059.001
+
+logsource:
+  product: windows
+
+detection:
+  selection1:                                    # Sysmon Process Creation (EventCode 1)
+    Provider_Name: Microsoft-Windows-Sysmon
+    EventID: 1
+    Image|endswith: '\\curl.exe'
+    CommandLine|contains_any:
+      - ".hta"
+      - ".ps1"
+      - ".psm1"
+      - ".vbs"
+      - ".js"
+      - ".jse"
+      - ".wsf"
+      - ".wsh"
+      - ".exe"
+      - ".dll"
+      - ".scr"
+      - ".bat"
+      - ".cmd"
+      - ".jar"
+      - ".msi"
+      - ".msp"
+      - "http"
+      - "\\\\"
+
+  selection2:                                    # PowerShell ScriptBlock Logging (EventCode 4104)
+    Provider_Name: Microsoft-Windows-PowerShell
+    EventID: 4104
+    ScriptBlockText|contains: "curl"
+    ScriptBlockText|contains_any:
+      - ".hta"
+      - ".ps1"
+      - ".psm1"
+      - ".vbs"
+      - ".js"
+      - ".jse"
+      - ".wsf"
+      - ".wsh"
+      - ".exe"
+      - ".dll"
+      - ".scr"
+      - ".bat"
+      - ".cmd"
+      - ".jar"
+      - ".msi"
+      - ".msp"
+      - "http"
+      - "\\\\"
+
+  condition: selection1 or selection2
+
+fields:
+  - Image
+  - CommandLine
+  - ScriptBlockText
+
+falsepositives:
+  - Technical user downloading file
+  - Automated script from software or tool
+
+level: medium
