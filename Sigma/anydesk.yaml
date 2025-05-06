@@ -1,0 +1,36 @@
+title: Detect AnyDesk Firewall Rule Creation
+id: a7b3d9f2-4c6a-4fa3-bf3e-8d1a2c9b7e5f
+status: experimental
+description: Detects creation of Windows Firewall rules to allow AnyDesk.
+author: fab
+date: '2025/05/06'
+references:
+  - https://attack.mitre.org/techniques/T1219/  # Remote Access Software
+tags:
+  - attack.T1219
+  - persistence
+
+logsource:
+  product: windows
+  service: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+
+detection:
+  anydesk_fw_rule_added:
+    EventID:
+      - 2097      #if using elastic agent add custom windows event : Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+      - 2071      
+    winlog.event_data.RuleName.keyword: "AnyDesk"
+  condition: anydesk_fw_rule_added
+
+fields:
+  - winlog.event_data.RuleName
+  - winlog.event_data.ApplicationPath
+  - winlog.event_data.Action
+  - winlog.event_data.Direction
+  - winlog.event_data.Profiles
+  - winlog.event_data.ModifyingUser
+
+falsepositives:
+  - Legitimate AnyDesk updates or reinstallations that recreate firewall rules.
+
+level: medium
