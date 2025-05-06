@@ -1,0 +1,25 @@
+title: Detect rclone Usage with Custom Config File
+id: d4e7f8a9-b3c1-4d2f-8e5a-1f2b3c4d5e6f
+status: experimental
+description: Detects execution of rclone with a specific configuration file ("--config=rclone.conf"), which may indicate unauthorized use of custom transfer settings for data exfiltration or synchronization.
+author: fab
+date: '2025/05/06'
+references:
+  - https://attack.mitre.org/techniques/T1567/002/  # Exfiltration to Cloud Storage via rclone
+tags:
+  - attack.T1567.002
+  - lateral-movement
+  - exfiltration
+
+logsource:
+  product: windows
+  service: sysmon
+
+detection:
+  selection:
+    EventID: 1                        # Sysmon Process Create
+    CommandLine|contains: "--config=rclone.conf"
+  condition: selection
+
+falsepositives:
+  - Legitimate use of rclone by administrator
