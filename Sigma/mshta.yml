@@ -1,0 +1,50 @@
+title: Detect Execution of External Files via mshta.exe
+id: 3f4a1b2c-9d01-4ea7-8b2c-5e7d9f0a1b23
+status: experimental
+description: Detects execution of mshta.exe loading external resources (HTTP(S) URLs, UNC paths, local file URIs) or invoking VBScript execution via mshta in PowerShell ScriptBlock logs.
+author: fab
+date: '2025/05/06'
+references:
+  - https://attack.mitre.org/techniques/T1204/002/  
+  - https://attack.mitre.org/techniques/T1059/001/  
+tags:
+  - attack.T1204.002
+  - attack.T1059.001
+
+logsource:
+  product: windows
+
+selection1:
+  Provider_Name: Microsoft-Windows-Sysmon
+  EventID: 1
+  Image|endswith: '\\mshta.exe'
+  CommandLine|contains_any:
+    - 'http://'
+    - 'https://'
+    - '\\\\'
+    - '////'
+    - 'vbscript:execute'
+
+selection2:
+  Provider_Name: Microsoft-Windows-PowerShell
+  EventID: 4104
+  ScriptBlockText|contains: 'mshta'
+  ScriptBlockText|contains_any:
+    - 'http://'
+    - 'https://'
+    - '\\\\'
+    - '////'
+    - 'vbscript:execute'
+
+condition: selection1 or selection2
+
+fields:
+  - Image
+  - CommandLine
+  - ScriptBlockText
+
+falsepositives:
+  - Unknow
+
+
+level: medium
