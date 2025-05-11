@@ -1,7 +1,7 @@
 title: Adexeplorer common registry read
 id: 19eff34d-5a06-4f41-8ab8-8c22376e07cf
 status: experimental
-description: Adexplorer common registry read
+description: Detection Adexplorer common registry read ket
 references:
     - attack.privilege_escalation
     - Huntress 2024 threat report
