@@ -1,0 +1,24 @@
+title: Adexeplorer common registry read
+id: 19eff34d-5a06-4f41-8ab8-8c22376e07cf
+status: experimental
+description: Detects adexplorer common registry read
+references:
+    - attack.privilege_escalation
+author: Fab
+date: 2025-05-11
+tags:
+    - sysinternals.adexplorer
+logsource:
+    category: registry_event
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID:
+        - 4663
+        ObjectName: "\\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Services\\ldap"
+    condition: selection
+falsepositives:
+    - Ldap settings change
+    - Legitimate administration software
+level: low
