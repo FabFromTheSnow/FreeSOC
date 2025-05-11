@@ -4,6 +4,8 @@ status: experimental
 description: Detects adexplorer common registry read
 references:
     - attack.privilege_escalation
+    - Huntress 2024 threat report
+    - https://www.huntress.com/resources/2024-cyber-threat-report
 author: Fab
 date: 2025-05-11
 tags:
