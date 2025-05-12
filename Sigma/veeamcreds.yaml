@@ -1,27 +1,24 @@
-title: Detect Veeam Password Recovery Script Registry Reads
+title: Veeam Password Recovery Script Registry Reads
 id: e2f9c3d4-b5a6-4e7f-8c1d-2f3a4b5c6d7e
 status: experimental
-description: >-
-  Detects unauthorized reads of the Veeam Backup and Replication configuration registry key,
-  typically performed by password recovery or discovery scripts. To generate EventID 4663 on
-  registry value reads, enable Windows Audit Policy for Object Access (Registry) and configure a
-  System Access Control List (SACL) on the key, granting the 'Everyone' principal successful
-  auditing for 'Query Value'.
+description: Detect registry read on key knwon to stoe login to veeam credential database
 author: fab
 date: '2025/05/06'
 references:
-  - https://attack.mitre.org/techniques/T1552/003/  
-
+  - https://attack.mitre.org/techniques/T1552/003/
+  - https://thedfirreport.com/2025/02/24/confluence-exploit-leads-to-lockbit-ransomware/
 logsource:
   product: windows
   service: security
-
 detection:
   selection:
     EventID: 4663
     winlog.event_data.ObjectName|startswith: 'HKLM\\SOFTWARE\\Veeam\\Veeam Backup and Replication\\'
     winlog.event_data.AccessList|contains: 'Query Value'
-  condition: selection
+  veeamprocess:
+    ProcessName|startswith:
+      - 'C:\Program Files\Veeam\Backup and Replication\'
+  condition: selection and not veeamprocess
 
 falsepositives:
   - Legitimate Veeam tool queries of Veeam configuration.
