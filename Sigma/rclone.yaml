@@ -7,9 +7,8 @@ date: '2025/05/06'
 references:
   - https://attack.mitre.org/techniques/T1567/002/  # Exfiltration to Cloud Storage via rclone
 tags:
+  - attack.exfiltration
   - attack.T1567.002
-  - lateral-movement
-  - exfiltration
 
 logsource:
   product: windows
