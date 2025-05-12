@@ -1,0 +1,58 @@
+title: win_run_suspicious_exec
+id: 8b3bac3e-2d7f-4fcd-98dc-a7281fbf865b
+status: experimental
+description: |-
+        detect execution of a suspicious binary from run.exe
+        If using swiftonsecurity sysmon conf add the following in your sysmon registry config
+        <TargetObject name="Run.exe,history" condition="contains">RunMRU</TargetObject>
+references:
+    - https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/main/Defender%20For%20Endpoint/SuspiciousRUNMRUEntry.md
+    - https://detect.fyi/hunting-clickfix-initial-access-techniques-8c1b38d5ef9b
+    - https://redcanary.com/blog/threat-intelligence/intelligence-insights-march-2025/
+author: FabFromTheSnow 
+date: 2025-05-12
+tags:
+    - attack.execution
+    - attack.T1204.004
+    - clickfix.run
+logsource:
+    category: registry
+    product: windows
+    service: sysmon
+detection:
+    selection1:
+        EventID: 13
+        TargetObject|contains: '\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU\MRUList'
+    processname:
+      Details|contains:
+        - 'cmd'
+        - 'wscript'
+        - 'cscript'
+        - 'mshta'
+        - 'rundll32'
+        - 'regsvr32'
+        - 'wmic'
+        - 'bitsadmin'
+        - 'curl'
+    commonprocess:
+      Details|contains:
+        - 'powershell'
+        - 'pwsh'
+    susparg:
+      Details|contains:
+        - 'http'
+        - '\\\\'
+        - '-e'
+        - 'ftp'
+        - 'Hidden'
+        - 'iex'
+        - 'Invoke-'
+        - '.ps1'
+        - '.exe'
+        - '.cscript'
+        - '.hta'
+        - 'iwr'
+    condition: selection1 and (processname or (commonprocess and susparg))
+falsepositives:
+    - IT user administration task
+level: Medium
