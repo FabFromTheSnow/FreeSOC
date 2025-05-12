@@ -8,7 +8,7 @@ references:
   - https://attack.mitre.org/techniques/T1219/  # Remote Access Software
 tags:
   - attack.T1219
-  - persistence
+  - attack.persistence
 
 logsource:
   product: windows
