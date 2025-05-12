@@ -19,7 +19,7 @@ detection:
     Provider_Name: Microsoft-Windows-Sysmon
     EventID: 1
     Image|endswith: '\\curl.exe'
-    CommandLine|contains_any:
+    CommandLine|contains:
       - ".hta"
       - ".ps1"
       - ".psm1"
@@ -43,7 +43,7 @@ detection:
     Provider_Name: Microsoft-Windows-PowerShell
     EventID: 4104
     ScriptBlockText|contains: "curl"
-    ScriptBlockText|contains_any:
+    ScriptBlockText|contains:
       - ".hta"
       - ".ps1"
       - ".psm1"
