@@ -1,7 +1,7 @@
-title: Adexeplorer common registry read
+title: Adexplorer Common Registry Read
 id: 19eff34d-5a06-4f41-8ab8-8c22376e07cf
 status: experimental
-description: Detection Adexplorer common registry read ket
+description: Detection of Adexplorer accessing common registry key
 references:
     - attack.privilege_escalation
     - Huntress 2024 threat report
@@ -9,7 +9,7 @@ references:
 author: Fab
 date: 2025-05-11
 tags:
-    - sysinternals.adexplorer
+    - attack.privilege-escalation
 logsource:
     category: registry_event
     product: windows
@@ -17,9 +17,15 @@ logsource:
 detection:
     selection:
         EventID:
-        - 4663
-        ObjectName: \REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\ldap
-    condition: selection
+            - 4663
+        ObjectName: '\REGISTRY\MACHINE\SYSTEM\ControlSet001\Services\ldap'
+    normal:
+        ProcessName:
+            - 'C:\Windows\System32\wbem\WmiPrvSE.exe'
+            - 'C:\Windows\System32\taskhostw.exe'
+    normalwild:
+        ProcessName|endswith: 'MsMpEng.exe'
+    condition: selection and not normal and not normalwild
 falsepositives:
     - Ldap settings change
     - Legitimate administration software
