@@ -25,7 +25,8 @@ detection:
             - 'C:\Windows\System32\taskhostw.exe'
     normalwild:
         ProcessName|endswith: 'MsMpEng.exe'
-    condition: selection and not normal and not normalwild
+        ProcessName|startswith: 'C:\Windows'
+    condition: selection and not (1 of normal or normalwild)
 falsepositives:
     - Ldap settings change
     - Legitimate administration software
