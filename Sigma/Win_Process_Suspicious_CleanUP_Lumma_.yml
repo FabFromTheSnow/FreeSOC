@@ -1,0 +1,25 @@
+title: Win Luma Cleaner
+id: 5476e24a-0764-4508-9676-20315ac5ddf3
+status: experimental
+description: Detects fsutil.exe being used to zero file content (associated to lumma stealer)
+references: 
+    - https://www.cisa.gov/news-events/alerts/2025/05/21/threat-actors-target-us-critical-infrastructure-lummac2-malware
+author: Fab
+date: 2025-05-22
+tags:
+  - attack.defense-evasion
+  - attack.T1070.004
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains: "fsutil.exe"
+    CommandLine|all:
+      - "*file*"
+      - "*setZeroData*"
+      - "*offset*"
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
