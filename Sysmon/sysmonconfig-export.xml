@@ -538,6 +538,36 @@ THIS FILE IS BASED ON SWIFT ON SECURITY SYSMON CONFIG CHECK ALL CREDIT BELOW
 			<TargetFilename condition="end with">.xls</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.ppt</TargetFilename> <!--Legacy Office files are often used for attacks-->
 			<TargetFilename condition="end with">.rtf</TargetFilename> <!--RTF files often 0day malware vectors when opened by Office-->
+						<TargetFilename condition="end with">.exe</TargetFilename> <!--exe file -->
+			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--xlsm file -->
+			<TargetFilename condition="end with">.pif</TargetFilename> <!--pif file -->
+			<TargetFilename condition="end with">.exe</TargetFilename> <!--exe file -->
+			<TargetFilename condition="contains">Desktop\</TargetFilename><!--file on desktop -->
+			<TargetFilename condition="end with">.docm</TargetFilename> <!--com file -->
+			<TargetFilename condition="end with">.xlsm</TargetFilename> <!--xlsm file -->
+			<TargetFilename condition="end with">.pptm</TargetFilename> <!--pptm file -->
+			<TargetFilename condition="end with">.dotm</TargetFilename> <!--dotm file -->
+			<TargetFilename condition="end with">.jar</TargetFilename> <!-- jar file -->
+			<TargetFilename condition="end with">.bin</TargetFilename> <!--bin file -->
+			<TargetFilename condition="end with">.raw</TargetFilename> <!--raw file -->
+			<TargetFilename condition="end with">.asp</TargetFilename> <!--asp file -->
+			<TargetFilename condition="end with">.aspx</TargetFilename> <!--raw file -->
+			<TargetFilename condition="end with">.iso</TargetFilename> <!--iso file -->
+			<TargetFilename condition="end with">.scf</TargetFilename> <!--shell command file -->
+			<TargetFilename condition="end with">.iso</TargetFilename> <!--iso file -->
+			<TargetFilename condition="end with">.job</TargetFilename> <!--task scheduler -->
+			<TargetFilename condition="end with">.scr</TargetFilename> <!--windows screensaver -->
+			<TargetFilename condition="end with">.hlp</TargetFilename> <!--windows help file -->
+			<TargetFilename condition="end with">.xll</TargetFilename> <!--excel addin -->
+			<TargetFilename condition="end with">.asp</TargetFilename> <!-- Active Server Pages script -->
+			<TargetFilename condition="end with">.aspx</TargetFilename> <!-- ASP.NET page -->
+			<TargetFilename condition="end with">.ashx</TargetFilename> <!-- ASP.NET web handler file -->
+			<TargetFilename condition="end with">.asmx</TargetFilename> <!-- ASP.NET web service file -->
+			<TargetFilename condition="end with">.config</TargetFilename> <!-- Configuration file -->
+			<TargetFilename condition="end with">.cer</TargetFilename> <!-- Certificate file -->
+			<TargetFilename condition="end with">.htr</TargetFilename> <!-- HTML template file -->
+			<TargetFilename condition="end with">.xoml</TargetFilename> <!-- Workflow file -->
+			<TargetFilename condition="end with">.jar</TargetFilename> <!-- jar file -->
 			<TargetFilename condition="contains">thecompanyname</TargetFilename>
 		</FileCreate>
 	</RuleGroup>
